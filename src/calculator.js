@@ -1,3 +1,4 @@
+
 class StringCalculator {
     constructor() {
         this.defaultDelimiter = ',';
@@ -6,24 +7,30 @@ class StringCalculator {
     add(numbers) {
         if (!numbers) return 0;
 
-        const { delimiter, numberString } = this.extractDelimiterAndNumbers(numbers);
-        const numberArray = this.splitNumbers(numberString, delimiter);
+        const { delimiters, numberString } = this.extractDelimitersAndNumbers(numbers);
+        const numberArray = this.splitNumbers(numberString, delimiters);
         return this.sumNumbers(numberArray);
     }
 
-    extractDelimiterAndNumbers(numbers) {
+    extractDelimitersAndNumbers(numbers) {
         // Check for custom delimiter
         if (numbers.startsWith("//")) {
             const parts = numbers.split("\n");
-            const delimiter = parts[0].substring(2);
-            return { delimiter, numberString: parts[1] };
+            const delimiterSection = parts[0].substring(2); // Get the delimiter part
+            const numberString = parts[1]; // Get the numbers part
+
+            // Handle multiple delimiters if present
+            const delimiters = delimiterSection.split(/[\[\]]+/).filter(Boolean); // Split on [ and ]
+            return { delimiters, numberString };
         }
 
-        return { delimiter: this.defaultDelimiter, numberString: numbers };
+        return { delimiters: [this.defaultDelimiter], numberString: numbers };
     }
 
-    splitNumbers(numberString, delimiter) {
-        return numberString.split(delimiter).map(Number);
+    splitNumbers(numberString, delimiters) {
+        // Create a regex pattern from delimiters
+        const regexPattern = delimiters.join('|'); // Join delimiters with | for regex OR
+        return numberString.split(new RegExp(regexPattern)).map(Number);
     }
 
     sumNumbers(numberArray) {
