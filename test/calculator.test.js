@@ -23,4 +23,7 @@ describe('String Calculator', () => {
         expect(calculator.add("1,2,3")).toBe(6);
     });
 
+    test('should return 3 for the input "//;\n1;2"', () => {
+        expect(calculator.add("//;\n1;2")).toBe(3);
+    });
 });
