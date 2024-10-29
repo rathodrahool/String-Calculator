@@ -34,6 +34,13 @@ class StringCalculator {
     }
 
     sumNumbers(numberArray) {
+        const negatives = numberArray.filter(num => num < 0);
+        if (negatives.length > 0) {
+
+            throw new Error(`negative numbers not allowed ${negatives.join(', ')}`);
+
+        }
+
         return numberArray.reduce((sum, current) => sum + current, 0);
     }
 }
