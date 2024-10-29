@@ -14,5 +14,9 @@ describe('String Calculator', () => {
     test('should return 1 for the input "1"', () => {
         expect(calculator.add("1")).toBe(1);
     });
+
+    test('should return 3 for the input "1,2"', ()=>{
+        expect(calculator.add("1,2")).toBe(3);
+    })
     
 });
