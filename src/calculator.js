@@ -41,7 +41,10 @@ class StringCalculator {
 
         }
 
-        return numberArray.reduce((sum, current) => sum + current, 0);
+        return numberArray.reduce((sum, current) => {
+            // Add to sum only if the number is within the safe integer range
+            return current <= Number.MAX_SAFE_INTEGER ? sum + current : sum; 
+        }, 0);
     }
 }
 
