@@ -26,4 +26,8 @@ describe('String Calculator', () => {
     test('should return 3 for the input "//;\n1;2"', () => {
         expect(calculator.add("//;\n1;2")).toBe(3);
     });
+
+    test('should handle custom delimiters correctly', () => {
+        expect(calculator.add("//[;]\n1;2;3")).toBe(6);
+    });
 });
